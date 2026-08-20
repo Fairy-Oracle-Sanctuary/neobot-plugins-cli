@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neobot-plugins-cli"
+version = "0.1.0"
+description = "NeoBot 插件快速原型测试 CLI —— 轻量 REPL,无需 Redis/MySQL/NapCat 即可加载并触发插件命令"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0" }
+authors = [{ name = "镀铬酸钾", email = "k2cr2o1@sofurry.cloud" }]
+keywords = ["neobot", "qq", "bot", "plugin", "test", "prototype", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Testing",
+]
+
+[project.scripts]
+neobot-lab = "neobot.lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+neobot = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

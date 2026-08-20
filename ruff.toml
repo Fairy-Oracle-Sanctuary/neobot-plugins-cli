@@ -1,0 +1,3 @@
+# 与 NeoBot 主仓库一致的策略:只选 F 类(Pyflakes:未定义/未使用/未导入)
+[lint]
+select = ["F"]
