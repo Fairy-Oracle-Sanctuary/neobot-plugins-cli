@@ -1,6 +1,9 @@
 # neobot-plugins-cli
 
-**NeoBot 插件快速原型测试 CLI** —— 轻量 REPL，无需 Redis / MySQL / NapCat 即可加载并触发插件命令。
+**NeoBot 插件开发工具链** —— 两个 CLI：
+
+- `neobot-lab`：插件快速原型测试（轻量 REPL，无需 Redis / MySQL / NapCat）
+- `neobot-plugin`：插件包管理器（从 Registry 安装 / 更新 / 卸载）
 
 基于 [NeoBot](https://github.com/Fairy-Oracle-Sanctuary/NeoBot) 的 **plugin-api-v1** 契约，内置该契约的轻量 stub，让插件开发者 clone 下来就能跑、就能测，不需要搭整套框架环境。
 
@@ -10,7 +13,9 @@
 pip install neobot-plugins-cli
 ```
 
-## 快速开始
+---
+
+## 一、neobot-lab —— 原型测试
 
 ```bash
 # 加载插件目录并进入交互 REPL
@@ -47,6 +52,44 @@ lab> /quit              退出
 ## 为什么需要它
 
 插件开发最大的痛点：为了测一个命令，要起 NapCat、Redis、MySQL 整套环境。`neobot-lab` 让插件在**纯本地、零依赖**下快速原型验证——先跑通逻辑，再上真实环境联调。
+
+## 二、neobot-plugin —— 包管理器
+
+从官方插件 Registry（[NeoBot-Plugins](https://github.com/Fairy-Oracle-Sanctuary/NeoBot-Plugins) 的 `index.json`）安装插件：
+
+```bash
+# 列出 Registry 中的插件
+neobot-plugin list
+
+# 搜索插件
+neobot-plugin search 图
+
+# 查看插件详情
+neobot-plugin info echo
+
+# 安装插件(默认到 ./plugins/,--yes 跳过确认)
+neobot-plugin install echo --yes
+
+# 更新插件
+neobot-plugin update echo
+
+# 卸载插件
+neobot-plugin uninstall echo
+
+# 列出本地已安装
+neobot-plugin list --installed
+```
+
+**安全设计**：
+- 安装前校验每个文件 **SHA256** 与 Registry 索引一致（防篡改）
+- 安装时展示插件元信息（描述 / 作者 / 许可 / 依赖 / 文件数）并交互确认
+- 生成本地 `manifest.json`，`list --installed` / `update` 依赖它读取版本
+
+支持自定义 Registry 与安装目录：
+
+```bash
+neobot-plugin --registry https://example.com/index.json --target ./my_plugins install demo
+```
 
 ## 限制
 
