@@ -69,7 +69,7 @@ from neobot.plugin_api.services import (
     run_in_thread_pool,
 )
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 __all__ = [
     "API_VERSION",
